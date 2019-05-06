@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="Txus">
+		<link rel="icon" href="">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+		<title>RATING</title>
+		<style>
+			.container {
+				max-width: 1000px;
+				width: 100%;
+				margin: 20px auto;
+				padding: 10px;
+				border: 5px solid #000;
+				border-radius: 10px;
+			}
+			.container h1 {
+				font-size: 3em;
+				text-align: center;
+			}
+			.rating {
+				font-size: 5em;
+				text-align: center;
+			}
+			.rating p i {
+				display: inline-block;
+				margin: 0.5em;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<div class="container">
+				<h1>JavaScript: Rating</h1>
+				<div class="rating">
+					<p>
+						<i class="far fa-bell"></i>
+						<i class="far fa-bell"></i>
+						<i class="far fa-bell"></i>
+						<i class="far fa-bell"></i>
+						<i class="far fa-bell"></i>
+					</p>
+				</div>
+			</div>
+		</section>
+		<script>
+			var clearObject = document.querySelector(".container");
+			var ratingObject = document.querySelectorAll(".rating p i");
+			var paintBell = false;
+			clearObject.addEventListener("click", clearBell, false);
+			for (let i = 0; i < ratingObject.length; i++) {
+				ratingObject[i].addEventListener("mouseenter", yellowBell, false);
+				ratingObject[i].addEventListener("mouseleave", blackBell, false);
+				ratingObject[i].addEventListener("click", ratingBell, false);
+			}
+			function yellowBell() {
+				let ratingElement = this;
+				do {
+					if (ratingElement.className == "far fa-bell") {
+						ratingElement.className = "fas fa-bell";
+						ratingElement.style.color = "yellow";
+					}
+					ratingElement = ratingElement.previousElementSibling;
+				} while (ratingElement !== null);
+				
+			}
+			function blackBell() {
+				let ratingElement = this;
+				do {
+					if (ratingElement.className === "fas fa-bell") {
+						ratingElement.className = "far fa-bell";
+						ratingElement.style.color = "black";
+					}
+					
+					ratingElement = ratingElement.previousElementSibling;
+				} while (ratingElement !== null);
+			}
+			function ratingBell() {
+				let ratingElement = this;
+				paintBell = true;
+				for (let i = 0; i < ratingObject.length; i++) {
+					ratingObject[i].className = "far fa-bell";
+					ratingObject[i].style.color = "black";
+				}
+				do {
+					ratingElement.className = "fas fa-bell clicked";
+					ratingElement.style.color = "yellow";
+					ratingElement = ratingElement.previousElementSibling;
+				} while (ratingElement !== null);
+			}
+			function clearBell() {
+				if (!paintBell) {
+					for (let i = 0; i < ratingObject.length; i++) {
+						ratingObject[i].className = "far fa-bell";
+						ratingObject[i].style.color = "black";
+					}
+				}
+				paintBell = false;
+			}
+		</script>
+	</body>
+</html>
